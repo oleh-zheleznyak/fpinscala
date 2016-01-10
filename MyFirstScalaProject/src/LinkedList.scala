@@ -122,4 +122,13 @@ object LinkedList {
   //Chapter 3, Excersise 16
   def increment(l:LinkedList[Int]) : LinkedList[Int] = foldRight(l,Nil:LinkedList[Int])((i,is)=>Cons(i+1,is))
   
+    //Chapter 3, Excersise 17
+  def toString[A](l:LinkedList[A]) : LinkedList[String] = foldRight(l,Nil:LinkedList[String])((i,is)=>Cons(i.toString(),is))
+  
+  //Chapter 3, Excersise 18
+  def map[A,B](l: LinkedList[A])(f: A => B): LinkedList[B] = foldRight(l, Nil:LinkedList[B])((i,is)=>Cons(f(i),is))
+  
+  //Chapter 3, Excersise 19
+  def filter[A](l:LinkedList[A])(f: A => Boolean):LinkedList[A] = foldRight(l, Nil:LinkedList[A])((i,is)=> Cons(i,is))
+  
   }

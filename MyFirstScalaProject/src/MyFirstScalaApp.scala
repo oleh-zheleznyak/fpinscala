@@ -19,10 +19,10 @@ object MyModule  {
     //println("%d".format(Excersises.Excersise3.sqr(3)));
     
     val a = Nil
-    val b = LinkedList(3.0, 0.0, 2.0)
+    val b = LinkedList(3.003, 1.1, 2.02)
     val c = LinkedList(1,2,3)
     
-    println(LinkedList.increment(c))
+    println(LinkedList.map[Int,Int](c)(_*2))
   }
     
   def factorial(n:Int) : Int =
