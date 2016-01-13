@@ -119,6 +119,13 @@ object LinkedList {
   // Chapter 3, Excersise 14
   def append[A](l:LinkedList[A], a:A):LinkedList[A] = foldRight[A,LinkedList[A]](l, Cons(a,Nil))(Cons(_,_))
   
+  // Chapter 3, Excersise 14
+  def append[A](l:LinkedList[A], m:LinkedList[A]):LinkedList[A] = foldRight[A,LinkedList[A]](l,m)((a,as)=>Cons(a,as))
+  
+  // Chapter 3, Excersise 15
+  // TODO: this probably does not have linear time - check and fix
+  def flatten[A](lls:LinkedList[LinkedList[A]]):LinkedList[A] = foldRight[LinkedList[A],LinkedList[A]](lls,Nil:LinkedList[A])(append)
+  
   //Chapter 3, Excersise 16
   def increment(l:LinkedList[Int]) : LinkedList[Int] = foldRight(l,Nil:LinkedList[Int])((i,is)=>Cons(i+1,is))
   
@@ -129,6 +136,36 @@ object LinkedList {
   def map[A,B](l: LinkedList[A])(f: A => B): LinkedList[B] = foldRight(l, Nil:LinkedList[B])((i,is)=>Cons(f(i),is))
   
   //Chapter 3, Excersise 19
-  def filter[A](l:LinkedList[A])(f: A => Boolean):LinkedList[A] = foldRight(l, Nil:LinkedList[A])((i,is)=> Cons(i,is))
+  def filter[A](l:LinkedList[A])(f: A => Boolean):LinkedList[A] = {
+    //@annotation.tailrec
+    def go[A](from:LinkedList[A])(f: A => Boolean):LinkedList[A] = from match {
+      case Nil=>Nil
+      case Cons(x,xs)=> f(x) match {
+        case true => Cons(x,go(xs)(f))
+        case false => go(xs)(f)
+      }
+    }
+    go(l)(f)
+  }
   
+  //Chapter 3, Excersise 20
+  def flatMap[A,B](l: LinkedList[A])(f: A => LinkedList[B]): LinkedList[B] = flatten[B](( map[A,LinkedList[B]](l)(f)))
+  
+  //Chapter 3, Excersise 21
+  def filterUsingFlatMap[A](l:LinkedList[A])(f: A => Boolean):LinkedList[A] = flatMap[A,A](l)(a=> { if(f(a)) Cons(a,Nil) else Nil })
+  
+  //Chapter 3, Excersise 23
+  def add[A](a1:LinkedList[A], a2:LinkedList[A])(f:(A,A)=>A) : LinkedList[A] = {
+    
+    def go[A](a1:LinkedList[A], a2:LinkedList[A],  f:(A,A)=>A) : LinkedList[A] = (a1,a2) match {
+      case (Cons(x,Nil),Cons(y,Nil)) => Cons(f(x,y),Nil)  
+      case (Cons(x,xs),Cons(y,ys)) => Cons(f(x,y),go(xs,ys,f))
+      case _ => Nil
+    }
+    
+    go(a1,a2,f)
+  }
+  
+   //Chapter 3, Excersise 24
+  def hasSubsequence[A](l: List[A], sub: List[A]): Boolean = { false }
   }
