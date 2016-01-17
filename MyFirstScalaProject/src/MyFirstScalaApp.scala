@@ -20,11 +20,15 @@ object MyModule  {
     
     val a = Nil
     val b = LinkedList(1,3,5)
-    val c = LinkedList(2,4,6)
-    val d = LinkedList(-1,-2)
+    val c = LinkedList(2,4,6,8,10)
+    val d = LinkedList(4,8,10)
     val dd = LinkedList(b,c,d)
     
-    println(LinkedList.add(b,c)((x,y)=>x+y))
+    //println(LinkedList.hasSubsequence(c, d))
+    
+    val t = new Branch(new Leaf(2), new Leaf(3))
+    println(Tree.depth(t))
+    
   }
     
   def factorial(n:Int) : Int =

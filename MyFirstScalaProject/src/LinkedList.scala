@@ -166,6 +166,23 @@ object LinkedList {
     go(a1,a2,f)
   }
   
-   //Chapter 3, Excersise 24
-  def hasSubsequence[A](l: List[A], sub: List[A]): Boolean = { false }
+   //Chapter 3, Excersise 24 - incorrect implementation - example (2,4,6,8,10) contains (4,8,10)
+  def hasSubsequence[A](l: LinkedList[A], sub: LinkedList[A]): Boolean = { 
+    
+    @annotation.tailrec
+    def go[A](l: LinkedList[A], sub: LinkedList[A]): Boolean = (l,sub) match { 
+      case (Nil, Nil) => true
+      case (Nil, Cons(x,xs)) => false
+      case (Cons(x,xs),Nil) => true
+      case (Cons(x,xs),Cons(y,Nil)) => x==y
+      case (Cons(x,Nil),Cons(y,ys)) => false
+      case (Cons(x,xs),Cons(y,ys))=> {
+        if (x==y) go(xs,ys)
+        else go(xs,sub)
+      }
+    }
+    
+    go(l,sub)
+  }
+  
   }
