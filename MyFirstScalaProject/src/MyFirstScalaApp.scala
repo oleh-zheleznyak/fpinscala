@@ -26,8 +26,8 @@ object MyModule  {
     
     //println(LinkedList.hasSubsequence(c, d))
     
-    val t = new Branch(new Leaf(2), new Leaf(3))
-    println(Tree.depth(t))
+    val t =  new Branch(new Leaf(2), new Leaf(3))
+    println(Tree.sizeWithFold(t))
     
   }
     
